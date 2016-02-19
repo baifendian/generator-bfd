@@ -1,0 +1,12 @@
+{
+  "name": "generator-bfd",
+  "version": "0.0.1",
+  "description": "",
+  "files": [
+    "app"
+  ],
+  "keywords": ["yeoman-generator"],
+  "dependencies": {
+    "yeoman-generator": "^0.20.2"
+  }
+}

@@ -13,22 +13,29 @@ const App = React.createClass({
       <div id="wrapper">
         <div id="header">
           <Link to="/" className="logo">
-            <span>Logo</span>
+            <span>XXX系统</span>
           </Link>
+          <div className="pull-right">
+            欢迎您，demo &nbsp;|&nbsp;
+            <a href="">安全退出</a>
+          </div>
         </div>
-        <div id="body">
+        <div id="body" className="clearfix">
           <div className="sidebar" id="sidebar">
             <Nav>
-              <Nav.Item href="/overview" icon="home" title="数据概况">
+              <Nav.Item href="/" icon="home" title="数据概况"></Nav.Item>
+              <Nav.Item href="/users" icon="home" title="人群管理">
                 <Nav>
-                  <Nav.Item href='/overview/trend' title="趋势分析"></Nav.Item>
-                  <Nav.Item href='/overview/usage' title="使用分析"></Nav.Item>
+                  <Nav.Item href='/users/list' title="人群列表"></Nav.Item>
+                  <Nav.Item href='/users/task' title="任务管理"></Nav.Item>
                 </Nav>
               </Nav.Item>
-              <Nav.Item href="/users" icon="bold" title="用户分析"></Nav.Item>
             </Nav>
           </div>
           <div className="content">{this.props.children}</div>
+        </div>
+        <div id="footer">
+          <div className="pull-right">Copyright©2015 xxx Corporation All Rights Reserved.</div>
         </div>
       </div>
     )
@@ -41,34 +48,34 @@ const routeConfig = [{
   indexRoute: {
     getComponent(location, cb) {
       require.ensure([], (require) => {
-        cb(null, require('./components/Trend.jsx').default)
+        cb(null, require('./components/Overview.jsx').default)
       })
     }
   },
   childRoutes: [{
     path: 'overview',
+    getComponent(location, cb) {
+      require.ensure([], (require) => {
+        cb(null, require('./components/Overview.jsx').default)
+      })
+    }
+  }, {
+    path: 'users',
     childRoutes: [{
-      path: 'trend',
+      path: 'list',
       getComponent(location, cb) {
         require.ensure([], (require) => {
-          cb(null, require('./components/Trend.jsx').default)
+          cb(null, require('./components/List.jsx').default)
         })
       }
     }, {
-      path: 'usage',
+      path: 'task',
       getComponent(location, cb) {
         require.ensure([], (require) => {
-          cb(null, require('./components/Usage.jsx').default)
+          cb(null, require('./components/Task.jsx').default)
         })
       }
     }]
-  }, {
-    path: 'users',
-    getComponent(location, cb) {
-      require.ensure([], (require) => {
-        cb(null, require('./components/Users.jsx').default)
-      })
-    }
   }]
 }]
 

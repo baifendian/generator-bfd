@@ -1,12 +1,15 @@
 #header {
   background-color: #2196f3;
   height: 50px;
+  line-height: 50px;
   padding: 0 20px;
-  .logo {
+  color: #fff;
+  a {
     color: #fff;
+  }
+  .logo {
     margin: 0;
-    line-height: 50px;
-    font-size: 24px;
+    font-size: 20px;
     &:hover,
     &:focus {
       text-decoration: none;
@@ -15,13 +18,16 @@
 }
 
 #body {
+  
   > .sidebar {
     width: 200px;
     float: left;
   }
   > .content {
+    min-height: 600px;
+    border-left: 1px solid #efefef;
     overflow: hidden;
-    padding: 0 20px;
+    padding: 20px;
     > div {
       -webkit-animation: in .5s;
     }
@@ -37,4 +43,13 @@
     opacity: 1;
     -webkit-transform: translate3d(0, 0, 0);
   }
+}
+
+#footer {
+  padding: 0 20px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 12px;
+  background-color: #333;
+  color: #fff;
 }

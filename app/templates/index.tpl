@@ -1,4 +1,4 @@
-
+<% if (isJSP) { %><test></test><% } %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +7,6 @@
 </head>
 <body>
   <div id="app"></div>
-  <script src="/build/app.js"></script>
+  <script src="/build/app<%= hash ? '.' + hash : '' %>.js"></script>
 </body>
 </html>

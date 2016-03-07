@@ -4,7 +4,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, IndexRoute, Link } from 'react-router'
 import { createHistory } from 'history'
-import Nav from 'bfd-ui/lib/nav'
+import { Nav, NavItem } from 'bfd-ui/lib/Nav'
 
 const App = React.createClass({
 
@@ -23,13 +23,13 @@ const App = React.createClass({
         <div id="body" className="clearfix">
           <div className="sidebar" id="sidebar">
             <Nav>
-              <Nav.Item href="/" icon="home" title="数据概况"></Nav.Item>
-              <Nav.Item href="/users" icon="home" title="人群管理">
+              <NavItem href="/" icon="home" title="数据概况"></NavItem>
+              <NavItem href="/users" icon="home" title="人群管理">
                 <Nav>
-                  <Nav.Item href='/users/list' title="人群列表"></Nav.Item>
-                  <Nav.Item href='/users/task' title="任务管理"></Nav.Item>
+                  <NavItem href='/users/list' title="人群列表"></NavItem>
+                  <NavItem href='/users/task' title="任务管理"></NavItem>
                 </Nav>
-              </Nav.Item>
+              </NavItem>
             </Nav>
           </div>
           <div className="content">{this.props.children}</div>

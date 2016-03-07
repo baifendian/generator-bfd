@@ -26,6 +26,8 @@ app.get('*', function(req, res) {
 
 app.use(express.static(__dirname))
 
-app.listen(9000, function () {
-  console.log('Server listening on http://localhost:9000, Ctrl+C to stop')
+var port = process.argv.slice(2)[0] || 9000
+
+app.listen(port, function () {
+  console.log('Server listening on http://localhost:' + port + ', Ctrl+C to stop')
 })

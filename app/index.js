@@ -23,8 +23,15 @@ module.exports = generators.Base.extend({
         this.directory(this.templatePath(folder), this.destinationPath(folder))
       }, this)
     },
+
+    dotedFiles: function() {
+      ['gitignore'].forEach(function(file) {
+        this.fs.copy(this.templatePath(file), this.destinationPath('.' + file))
+      }, this)
+    },
+
     files: function() {
-      ['.gitignore', 'app.jsx', 'index.tpl', 'package.json', 'server.js', 'webpack.config.js'].forEach(function(file) {
+      ['app.jsx', 'index.tpl', 'package.json', 'server.js', 'webpack.config.js'].forEach(function(file) {
         this.fs.copy(this.templatePath(file), this.destinationPath(file))
       }, this)
     }

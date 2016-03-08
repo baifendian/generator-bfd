@@ -7,20 +7,21 @@ $ npm install --g yo
 
 $ npm install --g generator-bfd
 
-$ cd project
+$ cd workspace
+
+$ yo bfd myapp
+```
+
+如果在项目目录已存在，在当前文件下创建
+
+```sh
+$ npm install --g yo
+
+$ npm install --g generator-bfd
+
+$ cd myapp
 
 $ yo bfd
 ```
 
-### 内置命令
-
-```sh
-# 开启开发环境
-$ npm run dev
-
-# 生成线上代码
-# OS X用户
-$ npm run build-mac
-# windows用户
-$ npm run build-win
-```
+详细使用 [http://192.168.168.180:4001/integration](http://192.168.168.180:4001/integration)

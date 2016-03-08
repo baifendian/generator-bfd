@@ -1,5 +1,4 @@
 var webpack = require('webpack')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
 var path = require('path')
 var fs = require('fs')
 var _ = require('underscore')

@@ -1,4 +1,5 @@
 import React from 'react'
+import DatePicker from 'bfd-ui/lib/DatePicker'
 import LineChart from 'bfd-ui/lib/lineChart'
 import '../less/overview.less'
 
@@ -10,8 +11,8 @@ export default React.createClass({
     }
   },
 
-  handleChange(e) {
-    this.setState({url: '/data/test.json?type=' + e.target.value})
+  handleSelect(date) {
+    this.setState({url: '/data/test.json?date=' + date})
   },
 
   render() {
@@ -19,11 +20,7 @@ export default React.createClass({
       <div className="overview">
         <div className="panel panel-default trend">
           <div className="panel-heading">
-            <select onChange={this.handleChange}>
-              <option value="0">昨天</option>
-              <option value="1">最近7天</option>
-              <option value="2">最近30天</option>
-            </select>
+            <DatePicker onSelect={this.handleSelect}></DatePicker>
           </div>
           <div className="panel-body row">
             <div className="col-md-6">

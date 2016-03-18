@@ -23,60 +23,43 @@ const App = React.createClass({
         <div id="body" className="clearfix">
           <div className="sidebar" id="sidebar">
             <Nav>
-              <NavItem href="/" icon="home" title="数据概况"></NavItem>
-              <NavItem href="/users" icon="home" title="人群管理">
-                <Nav>
-                  <NavItem href='/users/list' title="人群列表"></NavItem>
-                  <NavItem href='/users/task' title="任务管理"></NavItem>
-                </Nav>
+              <NavItem href="/" icon="equalizer" title="数据概况"></NavItem>
+              <NavItem href="/users" icon="send" title="人群管理">
+                <NavItem href='/users/list' title="人群列表"></NavItem>
+                <NavItem href='/users/task' title="任务管理"></NavItem>
               </NavItem>
             </Nav>
           </div>
           <div className="content">{this.props.children}</div>
         </div>
         <div id="footer">
-          <div className="pull-right">Copyright©2015 xxx Corporation All Rights Reserved.</div>
+          <div className="pull-right">Copyright©2016 xxx Corporation All Rights Reserved.</div>
         </div>
       </div>
     )
   }
 })
 
-const routeConfig = [{
-  path: '/',
-  component: App,
-  indexRoute: {
-    getComponent(location, cb) {
-      require.ensure([], (require) => {
-        cb(null, require('./components/Overview.jsx').default)
-      })
-    }
-  },
-  childRoutes: [{
-    path: 'overview',
-    getComponent(location, cb) {
-      require.ensure([], (require) => {
-        cb(null, require('./components/Overview.jsx').default)
-      })
-    }
-  }, {
-    path: 'users',
-    childRoutes: [{
-      path: 'list',
-      getComponent(location, cb) {
-        require.ensure([], (require) => {
-          cb(null, require('./components/List.jsx').default)
+render((
+  <Router history={createHistory()}>
+    <Route path="/" component={App}>
+      <IndexRoute getComponent={(location, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./components/Overview').default)
         })
-      }
-    }, {
-      path: 'task',
-      getComponent(location, cb) {
-        require.ensure([], (require) => {
-          cb(null, require('./components/Task.jsx').default)
-        })
-      }
-    }]
-  }]
-}]
-
-render(<Router history={createHistory()} routes={routeConfig}/>, document.getElementById('app'))
+      }}/>
+      <Route path="users">
+        <Route path="list" getComponent={(location, cb) => {
+          require.ensure([], require => {
+            cb(null, require('./components/List').default)
+          })
+        }}/>
+        <Route path="task" getComponent={(location, cb) => {
+          require.ensure([], require => {
+            cb(null, require('./components/Task').default)
+          })
+        }}/>
+      </Route>
+    </Route>
+  </Router>
+), document.getElementById('app'))

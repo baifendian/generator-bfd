@@ -1,11 +1,37 @@
 import React from 'react'
+import { render } from 'react-dom'
 
-export default React.createClass({
+const AA = React.createClass({
+
+  test() {
+    console.log('click')
+  },
+
+  componentDidMount() {
+    window.addEventListener('click', this.test)  
+  },
+
+  componentWillUnmount() {
+    window.removeEventListener('click', this.test)
+  },
+
   render() {
     return (
-      <div className="usage">
-        <p>使用分析</p>
-      </div>
+      <div>aa</div>
+    )
+  }
+})
+
+export default React.createClass({
+
+  componentDidMount() {
+    this.refs.container.innerHTML = '<div id="test"></div>'
+    render(<AA></AA>, document.getElementById('test'))
+  },
+
+  render() {
+    return (
+      <div className="usage" ref="container"></div>
     )
   }
 })

@@ -44,6 +44,7 @@ var config = {
     }]
   },
   resolve: {
+    extensions: ['', '.js', '.jsx'],
     alias: {}
   },
   devServer: {
@@ -53,15 +54,6 @@ var config = {
 }
 
 if (isProduction) {
-  var deps = [
-    'react/dist/react.min.js',
-    'react-dom/dist/react-dom.min.js'
-  ]
-  deps.forEach(function(dep) {
-    var depPath = path.join(__dirname, 'node_modules', dep)
-    config.resolve.alias[dep.split('/')[0]] = depPath
-    config.module.noParse.push(depPath)
-  })
   config.plugins.push(new webpack.optimize.UglifyJsPlugin())
 }
 

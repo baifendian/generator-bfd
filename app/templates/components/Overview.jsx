@@ -1,6 +1,6 @@
 import React from 'react'
-import DatePicker from 'bfd-ui/lib/DatePicker'
-import LineChart from 'bfd-ui/lib/lineChart'
+import { DatePicker } from 'bfd-ui/lib/DatePicker'
+import LineChart from 'bfd-ui/lib/LineChart'
 import '../less/overview.less'
 
 export default React.createClass({
@@ -20,7 +20,7 @@ export default React.createClass({
       <div className="overview">
         <div className="panel panel-default trend">
           <div className="panel-heading">
-            <DatePicker onSelect={this.handleSelect}></DatePicker>
+            <DatePicker date="2016-01-01" onSelect={this.handleSelect}></DatePicker>
           </div>
           <div className="panel-body row">
             <div className="col-md-6">

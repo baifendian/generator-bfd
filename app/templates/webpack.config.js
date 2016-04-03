@@ -2,11 +2,10 @@ var webpack = require('webpack')
 var path = require('path')
 var fs = require('fs')
 var _ = require('underscore')
+var autoprefixer = require('autoprefixer')
 
 var option = new Set(process.argv)
-
 var isProduction = option.has('--production')
-
 var devServerPort = 9000
 
 var config = {
@@ -31,18 +30,19 @@ var config = {
       }
     }, {
       test: /\.css$/,
-      loader: 'style-loader!css-loader'
+      loader: 'style!css!postcss'
     }, {
-      test: /\.(eot|woff|woff2|ttf|svg)$/,
-      loader: 'file-loader?name=files/[hash].[ext]'
+      test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
+      loader: 'file?name=files/[hash].[ext]'
     }, {
       test: /\.json$/,
-      loader: 'json-loader'
+      loader: 'json'
     }, {
       test: /\.less$/,
-      loader: 'style!css!less'
+      loader: 'style!css!less!postcss'
     }]
   },
+  postcss: [autoprefixer({ browsers: ['last 3 versions'] })],
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {}

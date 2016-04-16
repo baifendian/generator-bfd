@@ -3,8 +3,8 @@ import React from 'react'
 export default React.createClass({
   render() {
     return (
-      <div className="users">
-        <p>用户分析</p>
+      <div className="list">
+        <p>人群列表</p>
       </div>
     )
   }

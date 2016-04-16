@@ -1,5 +1,5 @@
 import React from 'react'
-import { DatePicker } from 'bfd-ui/lib/DatePicker'
+import DatePicker from 'bfd-ui/lib/DatePicker/DatePicker'
 import LineChart from 'bfd-ui/lib/LineChart'
 import '../less/overview.less'
 
@@ -7,12 +7,16 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      url: '/data/test.json'     
+      url: '/data/test.json',
+      date: '2016-01-01'
     }
   },
 
   handleSelect(date) {
-    this.setState({url: '/data/test.json?date=' + date})
+    this.setState({
+      date,
+      url: '/data/test.json?date=' + date
+    })
   },
 
   render() {
@@ -20,11 +24,11 @@ export default React.createClass({
       <div className="overview">
         <div className="panel panel-default trend">
           <div className="panel-heading">
-            <DatePicker date="2016-01-01" onSelect={this.handleSelect}></DatePicker>
+            <DatePicker date={this.state.date} onSelect={this.handleSelect}></DatePicker>
           </div>
           <div className="panel-body row">
             <div className="col-md-6">
-              <LineChart cols={{x:'用户数',y:'销量'}} category="date" url={this.state.url}></LineChart>
+              <LineChart cols={{x: '用户数', y: '销量'}} category="date" url={this.state.url}></LineChart>
             </div>
             <div className="col-md-6">
               <h1>折线图</h1>

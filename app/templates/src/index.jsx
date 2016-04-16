@@ -5,6 +5,10 @@ import { render } from 'react-dom'
 import { Router, Route, IndexRoute, Link } from 'react-router'
 import { createHistory } from 'history'
 import { Nav, NavItem } from 'bfd-ui/lib/Nav'
+import pace from '../lib/pace'
+import './less/pace.less'
+
+pace.start()
 
 const App = React.createClass({
 
@@ -25,8 +29,8 @@ const App = React.createClass({
             <Nav>
               <NavItem href="/" icon="equalizer" title="数据概况"></NavItem>
               <NavItem href="/users" icon="send" title="人群管理">
-                <NavItem href='/users/list' title="人群列表"></NavItem>
-                <NavItem href='/users/task' title="任务管理"></NavItem>
+                <NavItem href="/users/list" title="人群列表"></NavItem>
+                <NavItem href="/users/task" title="任务管理"></NavItem>
               </NavItem>
             </Nav>
           </div>

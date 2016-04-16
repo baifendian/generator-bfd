@@ -10,7 +10,7 @@ var devServerPort = 9000
 
 var config = {
   entry: {
-    app: path.join(__dirname, 'app.jsx')
+    app: path.join(__dirname, 'src/index.jsx')
   },
   output: {
     path: path.join(__dirname, 'build'),

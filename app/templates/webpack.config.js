@@ -54,7 +54,16 @@ var config = {
 }
 
 if (isProduction) {
-  config.plugins.push(new webpack.optimize.UglifyJsPlugin())
+  config.plugins.push(new webpack.DefinePlugin({
+    'process.env': {
+      'NODE_ENV': JSON.stringify('production')
+    }
+  }))
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+    output: {
+      comments: false
+    }
+  }))
 }
 
 // 动态生成 nodejs、java、python等环境下的模板

@@ -47,9 +47,7 @@ var config = {
     extensions: ['', '.js', '.jsx'],
     alias: {}
   },
-  devServer: {
-    port: devServerPort
-  },
+  devtool: '#source-map',
   plugins: []
 }
 

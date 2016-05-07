@@ -15,12 +15,21 @@ app.use(webpackDevMiddleware(webpack(WebpackConfig), {
   }
 }))
 
+app.set('views', path.join(__dirname))
+app.set('view engine', 'ejs')
+
 app.get('/data/:name.json', function(req, res) {
   res.sendFile(path.join(__dirname, 'data/' + req.params.name + '.json'))
 })
 
 app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'))
+  res.render('index', {
+    user: JSON.stringify({
+      name: '管理员',
+      type: 1
+    }),
+    now: Date.now()
+  })
 })
 
 var port = process.argv.slice(2)[0] || 9000

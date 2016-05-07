@@ -4,13 +4,26 @@ var fs = require('fs')
 var _ = require('underscore')
 var autoprefixer = require('autoprefixer')
 
-var option = new Set(process.argv)
-var isProduction = option.has('--production')
-var devServerPort = 9000
+var option = process.argv.slice(2)
+var isProduction = option[2] === '--production'
+
+var engine
+if (isProduction) {
+  engine = option[3]
+  if (!engine) {
+    throw new Error('No template engine found, check the command line, eg: `npm run build -- jsp`')
+  }
+  var engines = ['ejs', 'jsp']
+  if (engines.indexOf(engine) === -1) {
+    throw new Error('Template engine only support `ejs`、`jsp`')
+  }
+} else {
+  engine = 'ejs'
+}
 
 var config = {
   entry: {
-    app: path.join(__dirname, 'src/index.jsx')
+    app: path.join(__dirname, 'src')
   },
   output: {
     path: path.join(__dirname, 'build'),
@@ -39,15 +52,17 @@ var config = {
       loader: 'json'
     }, {
       test: /\.less$/,
-      loader: 'style!css!less!postcss'
+      loader: 'style!css!less'
     }]
   },
   postcss: [autoprefixer({ browsers: ['last 3 versions'] })],
   resolve: {
     extensions: ['', '.js', '.jsx'],
-    alias: {}
+    alias: {
+      public: path.join(__dirname, 'src/public'),
+      bfd: 'bfd-ui/lib'
+    }
   },
-  devtool: '#source-map',
   plugins: []
 }
 
@@ -62,9 +77,17 @@ if (isProduction) {
       comments: false
     }
   }))
+} else {
+  config.devtool = '#source-map'
 }
 
-// 动态生成 nodejs、java、python等环境下的模板
+
+_.templateSettings = {
+  interpolate: /\{\{=([^}]*)\}\}/g,
+  evaluate: /\{\{(?!=)(.*?)\}\}/g
+}
+
+// 动态生成不同服务器环境下的模板文件
 config.plugins.push(function() {
   this.plugin("done", function(statsData) {
     var stats = statsData.toJson()
@@ -73,18 +96,21 @@ config.plugins.push(function() {
       var templateFile = 'index.tpl'
       var template = fs.readFileSync(path.join(__dirname, templateFile), 'utf8')
 
-      var isJSP = option.has('--jsp')
-      template = _.template(template)({
-        isJSP: isJSP,
-        hash: isProduction ? stats.hash : ''
-      })
-      // 默认nodejs环境
-      var suffix = 'html'
-      if (isJSP) {
-        suffix = 'jsp'
+      var openTag = '<%'
+      var closeTag = '%>'
+
+      if (engine === 'jsp') {
+        openTag = '<#'
+        closeTag = '#>'
       }
 
-      fs.writeFileSync(path.join(__dirname, 'index.' + suffix), template)
+      template = _.template(template)({
+        engine: engine,
+        openTag: openTag,
+        closeTag: closeTag,
+        hash: isProduction ? stats.hash : ''
+      })
+      fs.writeFileSync(path.join(__dirname, 'index.' + engine), template)
     }
   })
 })

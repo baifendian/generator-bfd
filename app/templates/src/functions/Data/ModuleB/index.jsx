@@ -1,10 +1,12 @@
 import React from 'react'
+import Task from 'public/Task'
 
 export default React.createClass({
   render() {
     return (
-      <div className="task">
-        <p>任务管理</p>
+      <div>
+        <h1>ModuleB</h1>
+        <Task />
       </div>
     )
   }

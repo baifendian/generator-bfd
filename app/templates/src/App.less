@@ -5,6 +5,7 @@ html, body, #app {
 #wrapper {
   position: relative;
   min-height: 100%;
+  animation: fade .2s;
 }
 
 #header {
@@ -19,6 +20,9 @@ html, body, #app {
   .logo {
     margin: 0;
     font-size: 20px;
+    .glyphicon {
+      margin-right: 1em;
+    }
     &:hover,
     &:focus {
       text-decoration: none;
@@ -27,7 +31,7 @@ html, body, #app {
 }
 
 #body {
-  padding-bottom: 50px;
+  padding-bottom: 60px;
   > .sidebar {
     width: 200px;
     float: left;
@@ -35,7 +39,19 @@ html, body, #app {
   > .content {
     margin-left: 200px;
     padding: 20px;
+    > div {
+      animation: fade 0.2s;
+    }
   }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0; 
+  }
+  100% {
+    opacity: 1; 
+  } 
 }
 
 #footer {
@@ -44,9 +60,15 @@ html, body, #app {
   left: 0;
   width: 100%;
   padding: 0 20px;
-  height: 50px;
+  height: 60px;
+  line-height: 60px;
   font-size: 12px;
   background-color: #333;
   color: #ccc;
-  line-height: 50px;
+  a {
+    color: #fff;
+  }
+  .logo {
+    margin-right: 60px;
+  }
 }

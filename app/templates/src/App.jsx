@@ -61,8 +61,8 @@ const App = React.createClass({
         Children = <div>您无权访问该页面</div>
       }
       return (
-        <div id="wrapper">
-          <div id="header">
+        <div id="wrapper" className="container-fluid">
+          <div id="header" className="row">
             <Link to="/" className="logo">
               <span>PROJECT NAME</span>
             </Link>
@@ -71,8 +71,8 @@ const App = React.createClass({
               <a href="" onClick={this.handleLogout}>安全退出</a>
             </div>
           </div>
-          <div id="body" className="clearfix">
-            <div className="sidebar">
+          <div id="body" className="row">
+            <div className="sidebar col-md-2 col-sm-3">
               <Nav href="/">
                 <NavItem icon="equalizer" title="概览" />
                 {auth.user.type > 0 ? [
@@ -83,7 +83,7 @@ const App = React.createClass({
                 ] : null}
               </Nav>
             </div>
-            <div className="content">{Children}</div>
+            <div className="content col-md-10 col-sm-9">{Children}</div>
           </div>
           <div id="footer">
             <div className="pull-left">

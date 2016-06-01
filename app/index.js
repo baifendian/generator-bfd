@@ -19,7 +19,7 @@ module.exports = generators.Base.extend({
 
   writing: {
     folder: function() {
-      ['src', 'data'].forEach(function(folder) {
+      ['bin', 'data', 'src'].forEach(function(folder) {
         this.directory(this.templatePath(folder), this.destinationPath(folder))
       }, this)
     },

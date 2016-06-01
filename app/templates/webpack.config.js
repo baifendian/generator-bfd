@@ -5,7 +5,7 @@ var _ = require('underscore')
 var autoprefixer = require('autoprefixer')
 
 var option = process.argv.slice(2)
-var isProduction = option[2] === '--production'
+var isProduction = option[0] === '-p'
 
 var engine
 if (isProduction) {
@@ -89,29 +89,26 @@ _.templateSettings = {
 
 // 动态生成不同服务器环境下的模板文件
 config.plugins.push(function() {
-  this.plugin("done", function(statsData) {
+  this.plugin('done', function(statsData) {
     var stats = statsData.toJson()
+    var templateFile = 'index.tpl'
+    var template = fs.readFileSync(path.join(__dirname, templateFile), 'utf8')
 
-    if (!stats.errors.length) {
-      var templateFile = 'index.tpl'
-      var template = fs.readFileSync(path.join(__dirname, templateFile), 'utf8')
+    var openTag = '<%'
+    var closeTag = '%>'
 
-      var openTag = '<%'
-      var closeTag = '%>'
-
-      if (engine === 'jsp') {
-        openTag = '<#'
-        closeTag = '#>'
-      }
-
-      template = _.template(template)({
-        engine: engine,
-        openTag: openTag,
-        closeTag: closeTag,
-        hash: isProduction ? stats.hash : ''
-      })
-      fs.writeFileSync(path.join(__dirname, 'index.' + engine), template)
+    if (engine === 'jsp') {
+      openTag = '<#'
+      closeTag = '#>'
     }
+
+    template = _.template(template)({
+      engine: engine,
+      openTag: openTag,
+      closeTag: closeTag,
+      hash: isProduction ? stats.hash : ''
+    })
+    fs.writeFileSync(path.join(__dirname, 'index.' + engine), template)
   })
 })
 

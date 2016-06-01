@@ -17,6 +17,8 @@ pace.start()
 if (process.env.NODE_ENV === 'production') {
   xhr.baseUrl = '/api/'
 } else {
+  // 开发阶段数据接口
+  // xhr.baseUrl = '/data/'
   xhr.baseUrl = 'http://192.168.188.166:8080/api/'
 }
 

@@ -7,11 +7,12 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, IndexRoute } from 'react-router'
 import { createHistory } from 'history'
+import env from './env'
 import App from './App'
 
 export default render((
-  <Router history={createHistory()}>
-    <Route path="/" component={App}>
+  <Router onUpdate={() => window.scrollTo(0, 0)} history={createHistory()}>
+    <Route path={env.basePath} component={App}>
       <IndexRoute getComponent={(location, cb) => {
         require.ensure([], require => {
           cb(null, require('./functions/Overview').default)

@@ -3,6 +3,7 @@ var path = require('path')
 var fs = require('fs')
 var _ = require('underscore')
 var autoprefixer = require('autoprefixer')
+var env = require('./src/env')
 
 var option = process.argv.slice(2)
 var isProduction = option[0] === '-p'
@@ -29,7 +30,7 @@ var config = {
     path: path.join(__dirname, 'build'),
     filename: '[name]' + (isProduction ? '.[hash]' : '') + '.js',
     chunkFilename: '[id]' + (isProduction ? '.[hash]' : '') + '.js',
-    publicPath: '/build/'
+    publicPath: path.join(isProduction ? env.basePath : '', '/build/')
   },
   module: {
     noParse: [],

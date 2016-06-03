@@ -3,9 +3,10 @@ import { Link } from 'react-router'
 import { Nav, NavItem } from 'bfd/Nav'
 import xhr from 'bfd/xhr'
 import auth from 'public/auth'
+import env from './env'
 import './App.less'
 
-const LOGIN_PATH = '/login'
+const LOGIN_PATH = (env.basePath + '/login').replace(/\/\//, '/')
 
 const App = React.createClass({
 
@@ -15,13 +16,14 @@ const App = React.createClass({
 
   getInitialState() {
     return {
+      // 用户是否登录
       loggedIn: auth.isLoggedIn()
     }
   },
 
   componentWillMount() {
-    this.protectedPaths = ['data']
-    if (!this.state.loggedIn && this.props.location.pathname !== LOGIN_PATH) {
+    // 页面加载后判断是否需要跳转到登录页
+    if (!this.state.loggedIn && !this.isInLogin()) {
       this.login()
     }
   },
@@ -32,12 +34,25 @@ const App = React.createClass({
     })
   },
 
+  // 当前 URL 是否处于登录页
+  isInLogin() {
+    return this.props.location.pathname === LOGIN_PATH
+  },
+
+  // 权限判断
+  hasPermission() {
+    // ...根据业务具体判断
+    return true 
+  },
+
+  // 跳转到登录页
   login() {
     this.context.history.replaceState({
       referrer: this.props.location.pathname
     }, LOGIN_PATH)
   },
 
+  // 安全退出
   handleLogout(e) {
     e.preventDefault()
     xhr({
@@ -50,20 +65,22 @@ const App = React.createClass({
   },
 
   render() {
-    if (this.state.loggedIn) {
-      if (this.props.location.pathname === LOGIN_PATH) {
-        return this.props.children
-      }
 
-      // 权限处理逻辑，如果需要的话
-      let Children = this.props.children
-      if (auth.user.type === 0 && this.protectedPaths.indexOf(this.props.routes[1].path) !== -1) {
+    let Children = this.props.children
+
+    // 当前 URL 属于登录页时，不管是否登录，直接渲染登录页
+    if (this.isInLogin()) return Children
+
+    if (this.state.loggedIn) {
+
+      if (!this.hasPermission()) {
         Children = <div>您无权访问该页面</div>
       }
+
       return (
         <div id="wrapper" className="container-fluid">
           <div id="header" className="row">
-            <Link to="/" className="logo">
+            <Link to={env.basePath} className="logo">
               <span>PROJECT NAME</span>
             </Link>
             <div className="pull-right">
@@ -73,7 +90,7 @@ const App = React.createClass({
           </div>
           <div id="body" className="row">
             <div className="sidebar col-md-2 col-sm-3">
-              <Nav href="/">
+              <Nav href={env.basePath}>
                 <NavItem icon="equalizer" title="概览" />
                 {auth.user.type > 0 ? [
                   <NavItem key={0} href="data" icon="hand-right" title="数据统计">
@@ -98,9 +115,6 @@ const App = React.createClass({
         </div>
       )
     } else {
-      if (this.props.location.pathname === LOGIN_PATH) {
-        return this.props.children
-      }
       return null
     }
   }

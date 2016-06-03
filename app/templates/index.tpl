@@ -1,6 +1,3 @@
-{{ if (engine === 'jsp') { }}
-
-{{ } }}
 <!DOCTYPE html>
 <html lang="zh">
 <head>

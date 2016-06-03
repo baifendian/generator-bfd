@@ -6,25 +6,16 @@ import xhr from 'bfd/xhr'
 import message from 'bfd/message'
 import auth from 'public/auth'
 import router from './router'
+import env from './env'
 import pace from './pace'
 import './pace.less'
 
 pace.start()
 
 /**
- * 开发环境、线上环境数据接口配置
- */
-if (process.env.NODE_ENV === 'production') {
-  xhr.baseUrl = '/api/'
-} else {
-  // 开发阶段数据接口
-  // xhr.baseUrl = '/data/'
-  xhr.baseUrl = 'http://192.168.188.166:8080/api/'
-}
-
-/**
  * AJAX 全局配置，比如请求失败、会话过期的全局处理。参考 bfd-ui AJAX 请求组件
  */
+xhr.baseUrl = env.baseUrl + '/'
 xhr.success = (res, option) => {
   if (typeof res !== 'object') {
     message.danger(option.url + ': response data should be JSON')

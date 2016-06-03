@@ -36,7 +36,8 @@ export default React.createClass({
 
   handleSuccess(user) {
     auth.register(user)
-    this.context.history.push(this.props.location.state.referrer)
+    let referrer = this.props.location.state && this.props.location.state.referrer || '/'
+    this.context.history.push(referrer)
   },
 
   handleRemember(e) {

@@ -8,10 +8,10 @@
 </head>
 <body>
   <script>
-  window.user = {{= openTag }}- user {{= closeTag}}
-  window.now = {{= openTag }}= now {{= closeTag}}
+  window.user = <#- user #>
+  window.now = <#= now #>
   </script>
   <div id="app"></div>
-  <script src="build/app{{= hash ? '.' + hash : '' }}.js"></script>
+  <script src="build/app.bbdefa0ab413bfe70315.js"></script>
 </body>
 </html>

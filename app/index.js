@@ -31,7 +31,7 @@ module.exports = generators.Base.extend({
     },
 
     files: function() {
-      ['index.tpl', 'package.json', 'server.js', 'webpack.config.js'].forEach(function(file) {
+      ['index.tpl', 'package.json', 'README.md', 'server.js', 'webpack.config.js'].forEach(function(file) {
         this.fs.copy(this.templatePath(file), this.destinationPath(file))
       }, this)
     }

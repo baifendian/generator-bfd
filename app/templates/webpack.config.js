@@ -1,6 +1,7 @@
 var webpack = require('webpack')
 var path = require('path')
 var fs = require('fs')
+var rimraf = require('rimraf')
 var _ = require('underscore')
 var autoprefixer = require('autoprefixer')
 var env = require('./src/env')
@@ -10,7 +11,11 @@ var isProduction = option[0] === '-p'
 
 var engine
 if (isProduction) {
-  engine = option[3]
+
+  // 删除 build 目录，防止文件累积
+  rimraf.sync('./build')
+
+  engine = option.pop()
   if (!engine) {
     throw new Error('No template engine found, check the command line, eg: `npm run build -- jsp`')
   }
@@ -46,7 +51,7 @@ var config = {
       test: /\.css$/,
       loader: 'style!css!postcss'
     }, {
-      test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
+      test: /\.(eot|woff|woff2|ttf|svg|png|jpg)(\?v=[\d\.]+)?$/,
       loader: 'file?name=files/[hash].[ext]'
     }, {
       test: /\.json$/,

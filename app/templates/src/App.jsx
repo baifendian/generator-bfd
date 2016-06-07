@@ -100,7 +100,9 @@ const App = React.createClass({
                 ] : null}
               </Nav>
             </div>
-            <div className="content col-md-10 col-sm-9">{Children}</div>
+            <div className="content col-md-10 col-sm-9">
+              {Children}
+            </div>
           </div>
           <div id="footer">
             <div className="pull-left">

@@ -12,6 +12,6 @@
   window.now = {{= openTag }}= now {{= closeTag}}
   </script>
   <div id="app"></div>
-  <script src="build/app{{= hash ? '.' + hash : '' }}.js"></script>
+  <script src="{{= publicPath}}app{{= hash ? '.' + hash : '' }}.js"></script>
 </body>
 </html>

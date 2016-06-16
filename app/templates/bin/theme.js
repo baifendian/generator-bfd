@@ -39,7 +39,7 @@ function pushSheet(dir) {
 }
 pushSheet(path.join(__dirname, '../node_modules/bfd-ui/lib'))
 
-var reg = new RegExp(sourceColors.join('|'), 'g')
+var reg = new RegExp(sourceColors.join('|'), 'gi')
 sheets.forEach(function(sheet) {
   var content = fs.readFileSync(sheet, 'utf-8')
   content = content.replace(reg, function(match) {

@@ -6,7 +6,7 @@
     "theme": "node bin/theme.js -#42a5f5:#ff7043 -#2196f3:#ff5722 -#1e88e5:#f4511e"
   },
   "dependencies": {
-    "bfd-ui": "^0.1.8"
+    "bfd-ui": "^0.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
@@ -28,6 +28,7 @@
     "rimraf": "^2.5.2",
     "underscore": "^1.8.3",
     "webpack": "^1.12.9",
-    "webpack-dev-middleware": "^1.4.0"
+    "webpack-dev-middleware": "^1.4.0",
+    "webpack-livereload-plugin": "^0.8.1"
   }
 }

@@ -4,6 +4,7 @@ var fs = require('fs')
 var rimraf = require('rimraf')
 var _ = require('underscore')
 var autoprefixer = require('autoprefixer')
+var LiveReloadPlugin = require('webpack-livereload-plugin')
 var env = require('./src/env')
 
 var option = process.argv.slice(2)
@@ -11,10 +12,8 @@ var isProduction = option[0] === '-p'
 
 var engine
 if (isProduction) {
-
   // 删除 build 目录，防止文件累积
   rimraf.sync('./build')
-
   engine = option.pop()
   if (!engine) {
     throw new Error('No template engine found, check the command line, eg: `npm run build -- jsp`')
@@ -35,7 +34,7 @@ var config = {
     path: path.join(__dirname, 'build'),
     filename: '[name]' + (isProduction ? '.[hash]' : '') + '.js',
     chunkFilename: '[id]' + (isProduction ? '.[hash]' : '') + '.js',
-    publicPath: path.join(isProduction ? env.basePath : '', '/build/')
+    publicPath: ((isProduction ? env.basePath : '') + '/build/').replace(/\/\//, '/')
   },
   module: {
     noParse: [],
@@ -84,7 +83,9 @@ if (isProduction) {
     }
   }))
 } else {
-  config.devtool = '#source-map'
+  config.plugins.push(new LiveReloadPlugin({
+    appendScriptTag: true
+  }))
 }
 
 
@@ -109,6 +110,7 @@ config.plugins.push(function() {
     }
 
     template = _.template(template)({
+      publicPath: config.output.publicPath,
       engine: engine,
       openTag: openTag,
       closeTag: closeTag,

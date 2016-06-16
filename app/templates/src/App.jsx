@@ -91,9 +91,9 @@ const App = React.createClass({
           <div id="body" className="row">
             <div className="sidebar col-md-2 col-sm-3">
               <Nav href={env.basePath}>
-                <NavItem icon="equalizer" title="概览" />
+                <NavItem icon="signal" title="概览" />
                 {auth.user.type > 0 ? [
-                  <NavItem key={0} href="data" icon="hand-right" title="数据统计">
+                  <NavItem key={0} href="data" icon="th-large" title="数据统计">
                     <NavItem href="data/moduleA" title="模块A" />
                     <NavItem href="data/moduleB" title="模块B" />
                   </NavItem>

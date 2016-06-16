@@ -5,7 +5,7 @@
 
 ## Changelog
 
-### 
+### v0.2.0 2016-06-16
 1. 添加自动化换肤功能，bin/theme.js `npm run theme` 执行
 1. 线上、开发环境配置抽离，src/env.js
 1. 添加了 README.md 模版

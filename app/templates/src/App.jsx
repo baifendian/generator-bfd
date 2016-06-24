@@ -40,10 +40,10 @@ const App = React.createClass({
   },
 
   // 权限判断
-  hasPermission() {
-    // ...根据业务具体判断
-    return true 
-  },
+  // hasPermission() {
+  //   // ...根据业务具体判断
+  //   return true 
+  // },
 
   // 跳转到登录页
   login() {
@@ -73,9 +73,9 @@ const App = React.createClass({
 
     if (this.state.loggedIn) {
 
-      if (!this.hasPermission()) {
-        Children = <div>您无权访问该页面</div>
-      }
+      // if (!this.hasPermission()) {
+      //   Children = <div>您无权访问该页面</div>
+      // }
 
       return (
         <div id="wrapper" className="container-fluid">
@@ -91,13 +91,11 @@ const App = React.createClass({
           <div id="body" className="row">
             <div className="sidebar col-md-2 col-sm-3">
               <Nav href={env.basePath}>
-                <NavItem icon="signal" title="概览" />
-                {auth.user.type > 0 ? [
-                  <NavItem key={0} href="data" icon="th-large" title="数据统计">
-                    <NavItem href="data/moduleA" title="模块A" />
-                    <NavItem href="data/moduleB" title="模块B" />
-                  </NavItem>
-                ] : null}
+              <NavItem icon="signal" title="概览" />
+                <NavItem key={0} href="data" icon="th-large" title="数据统计">
+                  <NavItem href="data/moduleA" title="模块A" />
+                  <NavItem href="data/moduleB" title="模块B" />
+                </NavItem>
               </Nav>
             </div>
             <div className="content col-md-10 col-sm-9">

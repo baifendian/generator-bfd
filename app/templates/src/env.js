@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'production') {
   env.baseUrl = '/api'
 
   // 页面根路径
-  env.basePath = '/bre'
+  env.basePath = '/web-demo'
 
 } else {
 

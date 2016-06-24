@@ -1,3 +1,6 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -7,11 +10,15 @@
   <title>PROJECT NAME</title>
 </head>
 <body>
+  
   <script>
-  window.user = <#- user #>
-  window.now = <#= now #>
+  // window.user = ${user}
+  window.user = {
+    name: 'demo'
+  }
   </script>
+  
   <div id="app"></div>
-  <script src="build/app.bbdefa0ab413bfe70315.js"></script>
+  <script src="/web-demo/build/app.e81fdcc5e39fd5d3b90c.js"></script>
 </body>
 </html>

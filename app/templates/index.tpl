@@ -1,3 +1,6 @@
+<# if (isProduction) { #>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<# } #>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -7,11 +10,15 @@
   <title>PROJECT NAME</title>
 </head>
 <body>
+  <# if (isProduction) { #>
   <script>
-  window.user = {{= openTag }}- user {{= closeTag}}
-  window.now = {{= openTag }}= now {{= closeTag}}
+  // window.user = ${user}
+  window.user = {
+    name: 'demo'
+  }
   </script>
+  <# } #>
   <div id="app"></div>
-  <script src="{{= publicPath}}app{{= hash ? '.' + hash : '' }}.js"></script>
+  <script src="<#= publicPath #>app<#= isProduction ? '.' + hash : '' #>.js"></script>
 </body>
 </html>

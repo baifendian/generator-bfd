@@ -10,21 +10,8 @@ var env = require('./src/env')
 var option = process.argv.slice(2)
 var isProduction = option[0] === '-p'
 
-var engine
-if (isProduction) {
-  // 删除 build 目录，防止文件累积
-  rimraf.sync('./build')
-  engine = option.pop()
-  if (!engine) {
-    throw new Error('No template engine found, check the command line, eg: `npm run build -- jsp`')
-  }
-  var engines = ['ejs', 'jsp']
-  if (engines.indexOf(engine) === -1) {
-    throw new Error('Template engine only support `ejs`、`jsp`')
-  }
-} else {
-  engine = 'ejs'
-}
+// 删除 build 目录，防止开发模式下读取以及线上模式中的文件累积
+rimraf.sync('./build')
 
 var config = {
   entry: {
@@ -77,46 +64,30 @@ if (isProduction) {
       'NODE_ENV': JSON.stringify('production')
     }
   }))
-  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    output: {
-      comments: false
-    }
-  }))
 } else {
   config.plugins.push(new LiveReloadPlugin({
     appendScriptTag: true
   }))
 }
 
-
 _.templateSettings = {
-  interpolate: /\{\{=([^}]*)\}\}/g,
-  evaluate: /\{\{(?!=)(.*?)\}\}/g
+  evaluate:    /<#([\s\S]+?)#>/g,
+  interpolate: /<#=([\s\S]+?)#>/g
 }
 
-// 动态生成不同服务器环境下的模板文件
+// 动态生成开发、线上环境下的模板文件
 config.plugins.push(function() {
   this.plugin('done', function(statsData) {
     var stats = statsData.toJson()
     var templateFile = 'index.tpl'
     var template = fs.readFileSync(path.join(__dirname, templateFile), 'utf8')
 
-    var openTag = '<%'
-    var closeTag = '%>'
-
-    if (engine === 'jsp') {
-      openTag = '<#'
-      closeTag = '#>'
-    }
-
     template = _.template(template)({
       publicPath: config.output.publicPath,
-      engine: engine,
-      openTag: openTag,
-      closeTag: closeTag,
+      isProduction: isProduction,
       hash: isProduction ? stats.hash : ''
     })
-    fs.writeFileSync(path.join(__dirname, 'index.' + engine), template)
+    fs.writeFileSync(path.join(__dirname, 'index.' + (isProduction ? 'jsp' : 'ejs')), template)
   })
 })
 

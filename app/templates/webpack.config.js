@@ -64,6 +64,11 @@ if (isProduction) {
       'NODE_ENV': JSON.stringify('production')
     }
   }))
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+    output: {
+      comments: false
+    }
+  }))
 } else {
   config.plugins.push(new LiveReloadPlugin({
     appendScriptTag: true

@@ -7,14 +7,18 @@ module.exports = generators.Base.extend({
 
   constructor: function() {
     generators.Base.apply(this, arguments)
+  },
 
-    var option = process.argv.slice(3)
-
-    if (option[0]) {
-      this.appname = option[0]
-      mkdirp(this.appname)
-      this.destinationRoot(this.appname)
-    }
+  prompting: function() {
+    return this.prompt([{
+      type: 'input',
+      name: 'name',
+      message: 'project name ?'
+    }]).then(function (answers) {
+      this.name = answers.name
+      mkdirp(this.name)
+      this.destinationRoot(this.name)
+    }.bind(this))
   },
 
   writing: {
@@ -31,7 +35,7 @@ module.exports = generators.Base.extend({
     },
 
     files: function() {
-      ['index.tpl', 'package.json', 'README.md', 'server.js', 'webpack.config.js'].forEach(function(file) {
+      ['config.js', 'index.html', 'index.js', 'package.json', 'README.md', 'router.js', 'server.js', 'webpack.config.js'].forEach(function(file) {
         this.fs.copy(this.templatePath(file), this.destinationPath(file))
       }, this)
     }

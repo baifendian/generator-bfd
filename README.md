@@ -3,6 +3,8 @@
 [![npm package](https://img.shields.io/npm/v/generator-bfd.svg)](https://www.npmjs.org/package/generator-bfd)
 [![NPM downloads](http://img.shields.io/npm/dm/generator-bfd.svg)](https://npmjs.org/package/generator-bfd)
 
+<img src="screenshot.jpeg" width="600" alt="generator bfd">
+
 yeoman 平台百分点项目生成器
 
 [工作流程](WORKFLOW.md)

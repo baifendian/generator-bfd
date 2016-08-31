@@ -13,4 +13,4 @@ $ npm start
 
 ## 部署测试/上线
 
-参考 [http://ui.baifendian.com/workflow](http://ui.baifendian.com/workflow) 第三部分
+参考 [脚手架－部署](http://ui.baifendian.com/scaffolding#build)

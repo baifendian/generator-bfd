@@ -1,32 +1,40 @@
+/**
+ * Copyright (c) 2016-present, Baifendian, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
 var webpack = require('webpack')
 var path = require('path')
 var fs = require('fs')
 var rimraf = require('rimraf')
-var _ = require('underscore')
 var autoprefixer = require('autoprefixer')
 var LiveReloadPlugin = require('webpack-livereload-plugin')
-var env = require('./src/env')
 
 var option = process.argv.slice(2)
 var isProduction = option[0] === '-p'
+var STATIC = 'static'
 
-// 删除 build 目录，防止开发模式下读取以及线上模式中的文件累积
-rimraf.sync('./build')
+// 删除打包生成的静态资源目录，防止开发模式下优先读取硬盘以及多次打包后该目录下文件的累积
+rimraf.sync('./' + STATIC)
 
 var config = {
   entry: {
-    app: path.join(__dirname, 'src')
+    app: './index.js'
   },
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, STATIC),
     filename: '[name]' + (isProduction ? '.[hash]' : '') + '.js',
     chunkFilename: '[id]' + (isProduction ? '.[hash]' : '') + '.js',
-    publicPath: ((isProduction ? env.basePath : '') + '/build/').replace(/\/\//, '/')
+    publicPath: '/' + STATIC + '/'
   },
   module: {
     noParse: [],
     loaders: [{
-      test: /\.jsx?$/,
+      test: /\.js?$/,
       loader: 'babel',
       exclude: /node_modules/,
       query: {
@@ -44,18 +52,26 @@ var config = {
       loader: 'json'
     }, {
       test: /\.less$/,
-      loader: 'style!css!less'
+      loader: 'style!css!less!postcss'
     }]
   },
-  postcss: [autoprefixer({ browsers: ['last 3 versions'] })],
+  postcss: [autoprefixer({
+    browsers: [
+      '>1%',
+      'last 4 versions',
+      'Firefox ESR',
+      'not ie < 9', // React doesn't support IE8 anyway
+    ]
+  })],
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js'],
     alias: {
-      public: path.join(__dirname, 'src/public'),
+      public: path.join(__dirname, './public'),
       bfd: 'bfd-ui/lib'
+      // bfd: path.join(__dirname, '../../../bfd-ui/src')
     }
   },
-  plugins: []
+  plugins: [new webpack.optimize.DedupePlugin()]
 }
 
 if (isProduction) {
@@ -65,6 +81,9 @@ if (isProduction) {
     }
   }))
   config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: false
+    },
     output: {
       comments: false
     }
@@ -75,24 +94,14 @@ if (isProduction) {
   }))
 }
 
-_.templateSettings = {
-  evaluate:    /<#([\s\S]+?)#>/g,
-  interpolate: /<#=([\s\S]+?)#>/g
-}
-
-// 动态生成开发、线上环境下的模板文件
+// 动态替换 index.html 入口 js src 地址
 config.plugins.push(function() {
   this.plugin('done', function(statsData) {
     var stats = statsData.toJson()
-    var templateFile = 'index.tpl'
-    var template = fs.readFileSync(path.join(__dirname, templateFile), 'utf8')
-
-    template = _.template(template)({
-      publicPath: config.output.publicPath,
-      isProduction: isProduction,
-      hash: isProduction ? stats.hash : ''
-    })
-    fs.writeFileSync(path.join(__dirname, 'index.' + (isProduction ? 'jsp' : 'ejs')), template)
+    var html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
+    var distPath = config.output.publicPath + 'app.' + (isProduction ? stats.hash : '') + 'js'
+    html = html.replace(/(<script src=").*?(")/, '$1' + distPath + '$2')
+    fs.writeFileSync(path.join(__dirname, 'index.html'), html)
   })
 })
 

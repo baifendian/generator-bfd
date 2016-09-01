@@ -3,9 +3,9 @@
 [![npm package](https://img.shields.io/npm/v/generator-bfd.svg)](https://www.npmjs.org/package/generator-bfd)
 [![NPM downloads](http://img.shields.io/npm/dm/generator-bfd.svg)](https://npmjs.org/package/generator-bfd)
 
-<img src="screenshot.jpeg" width="600" alt="generator bfd">
+基于 yeoman 平台项目前端生成器 [ui.baifendian.com](http://ui.baifendian.com)
 
-yeoman 平台百分点项目生成器
+<img src="screenshot.jpeg" width="600" alt="generator-bfd" />
 
 [工作流程](WORKFLOW.md)
 

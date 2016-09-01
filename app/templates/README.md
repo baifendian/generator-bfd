@@ -1,16 +1,10 @@
-# XXX 系统
+# <%= name %>
 
-## 本地开发环境安装
+本应用基于 [generator-bfd](http://ui.baifendian.com/scaffolding) 构建
 
 ```sh
-$ git clone 
+git clone 
 
-# 安装依赖包
-$ npm install
-
-$ npm start
+npm install
 ```
-
-## 部署测试/上线
-
-参考 [脚手架－部署](http://ui.baifendian.com/scaffolding#build)
+其它请参考 [workflow](http://ui.baifendian.com/scaffolding/workflow)

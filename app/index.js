@@ -35,8 +35,16 @@ module.exports = generators.Base.extend({
     },
 
     files: function() {
-      ['config.js', 'index.html', 'index.js', 'package.json', 'README.md', 'router.js', 'server.js', 'webpack.config.js'].forEach(function(file) {
+      ['config.js', 'index.html', 'index.js', 'package.json', 'router.js', 'server.js', 'webpack.config.js'].forEach(function(file) {
         this.fs.copy(this.templatePath(file), this.destinationPath(file))
+      }, this)
+    },
+
+    templateFiles: function() {
+      ['README.md'].forEach(function(file) {
+        this.fs.copyTpl(this.templatePath(file), this.destinationPath(file), {
+          name: this.name
+        })
       }, this)
     }
   },

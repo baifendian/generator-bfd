@@ -8,13 +8,12 @@ import auth from 'public/auth'
 import router from './router'
 
 // AJAX 全局配置
-if (process.env.NODE_ENV === 'production') {
-  // 线上环境
-  xhr.baseUrl = '/api/'
-} else {
-  // 开发环境
+if (__DEV__) {
   xhr.baseUrl = 'http://127.0.0.1:3000/api/'
+} else {
+  xhr.baseUrl = '/api/'
 }
+
 xhr.success = (res, option) => {
   if (typeof res !== 'object') {
     message.danger(option.url + ': response data should be JSON')

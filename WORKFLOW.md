@@ -36,9 +36,9 @@ yo bfd
 ## 开发
 
 ```sh
-$ cd myapp
+cd myapp
 
-$ npm start
+npm start
 ```
 
 到此为止，前端环境配置完成，[http://localhost:9000](http://localhost:9000)
@@ -51,17 +51,17 @@ $ npm start
 代码规范参考 [airbnb](https://github.com/airbnb/javascript)
 
 ```sh
-$ cd myapp
+cd myapp
 
-$ npm run lint
+npm run lint
 ```
 
 ### 构建线上环境代码
 
 ```sh
-$ cd myapp
+cd myapp
 
-$ npm run build
+npm run build
 ```
 
 完成后，myapp 下的 static 目录及 index.html 发送给后台即可，如 Java web 项目下的 webapp 目录

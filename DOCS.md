@@ -1,6 +1,6 @@
 # 文档
 
-## 文件结构介绍
+## 文件结构说明
 
 ```
 myapp
@@ -47,9 +47,11 @@ bfd-ui 及脚手架主色调替换，支持多个颜色替换，语法规则：-
 
 另外，使用 localStorage 的主要目的是存放当前登录用户的相关信息，来源于登录接口成功后返回的数据，这样无需每次从服务器获取这些数据
 
-### 部署路径问题
+### 部署后资源加载路径问题
 
-webpack 所有资源的加载都采用绝对路径（），所以 webpack.config 下 publicPath 注意和线上环境保持一致，默认 `/static/` 路径，如 `http://media.com/static/`
+`webpack.config.js` 下 `publicPath` 注意和线上环境保持一致，默认为 `/static/`，实际路径为 `http://media.com/static/`
+
+AJAX 请求路径在 `config.js` 下配置
 
 ### AJAX 全局配置
 

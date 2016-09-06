@@ -1,11 +1,11 @@
-import './index.less'
 import React from 'react'
 import { Row, Col } from 'bfd/Layout'
+import './index.less'
 
-const Footer = () => {
+export default () => {
   return (
-    <Row className="footer">
-      <Col col="sm-6">
+    <Row className="footer" fluid>
+      <Col>
         <a href="http://www.baifendian.com" className="footer__logo">
           <img src={require('public/bfd.png')} />
         </a>
@@ -19,5 +19,3 @@ const Footer = () => {
     </Row>
   )
 }
-
-export default Footer

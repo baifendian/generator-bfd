@@ -19,14 +19,21 @@ class App extends Component {
 
     const { children, location, history, routes } = this.props
 
-    // login 不渲染 header footer
-    if (routes[1] && routes[1].path === 'login') {
-      return children
+    let main = [
+      <Header key="header" history={history} location={location} />,
+      <Body key="body">{children}</Body>
+    ]
+
+    if (routes[1]) {
+      const path = routes[1].path
+      if (path === 'login' || path === '*') {
+        main = children
+      }
     }
+
     return (
       <div className="wrapper">
-        <Header history={history} location={location} />
-        <Body>{children}</Body>
+        {main}
         <Footer />
       </div>
     )

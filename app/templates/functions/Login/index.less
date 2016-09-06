@@ -1,20 +1,9 @@
 .login {
   background-color: #333;
-  min-height: 100%;
+  min-height: 100vh;
   background: #333 url(./bg.jpg) no-repeat;
+  padding-top: 200px;
   background-size: cover;
-  position: relative;
-  .footer {
-    background: #2196f3;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  }
-}
-
-.login__body {
-  padding-top: 150px;
-  padding-bottom: 150px;
   .bfd-form {
     position: relative;
     margin: 0 auto;
@@ -36,16 +25,23 @@
 .login__logo {
   position: absolute;
   bottom: 100%;
-  margin-bottom: 10px;
   left: 50%;
   transform: translate(-50%, 0);
   text-align: center;
   white-space: nowrap;
   color: #fff;
+  font-size: 26px;
+  line-height: 40px;
+  margin-bottom: 20px;
+  padding-left: 40px;
+  background: url('~public/logo.png') left center no-repeat;
+  background-size: 30px 30px;
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
+    background: url('~public/logo@2x.png') left center no-repeat;
+    background-size: 30px 30px;
+  }
 }
 
-.login__toggle {
-  display: inline-block;
-  margin-top: 10px;
-  text-decoration: none;
+.login + .footer {
+  background: #2196f3;
 }

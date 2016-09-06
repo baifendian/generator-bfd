@@ -21,9 +21,8 @@ option.forEach(function(item) {
 })
 
 var sheets = []
-sheets.push(path.join(__dirname, '../node_modules/bfd-bootstrap/lib/dist/bfd-bootstrap.min.css'))
-sheets.push(path.join(__dirname, '../src/App.less'))
-sheets.push(path.join(__dirname, '../src/functions/Login/index.less'))
+sheets.push(path.join(__dirname, '../functions/App/index.less'))
+sheets.push(path.join(__dirname, '../functions/Login/index.less'))
 
 function pushSheet(dir) {
   fs.readdirSync(dir).forEach(function(item) {

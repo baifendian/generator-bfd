@@ -33,7 +33,7 @@ const auth = {
   }
 }
 
-if (process.env.NODE_ENV !== 'production') {
+if (__DEV__) {
   // 开发环境登录状态写死，方便开发
   document.cookie = 'user=0FAC6FBASDS3213AX'
   auth.register({

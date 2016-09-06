@@ -4,7 +4,7 @@
 
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute } from 'react-router'
+import { Router, Route, IndexRedirect } from 'react-router'
 import { createHistory } from 'history'
 import auth from 'public/auth'
 import App from './functions/App'
@@ -15,14 +15,13 @@ function requireAuth(nextState, replaceState) {
   const loginPath = '/login'
   if (!auth.loggedIn()) {
     path !== loginPath && replaceState({referrer: path}, '/login')
-  } else {
-    path === loginPath && replaceState({}, '/')
   }
 }
 
 export default render((
   <Router history={createHistory()} onUpdate={() => window.scrollTo(0, 0)}>
     <Route path="/" component={App} onEnter={requireAuth}>
+      <IndexRedirect to="/overview/todos" />
       <Route path="overview">
         <Route path="todos" getComponent={(location, cb) => {
           require.ensure([], require => {

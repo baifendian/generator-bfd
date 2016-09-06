@@ -67,11 +67,13 @@ var config = {
     extensions: ['', '.js'],
     alias: {
       public: path.join(__dirname, './public'),
-      bfd: 'bfd-ui/lib'
-      // bfd: path.join(__dirname, '../../../bfd-ui/src')
+      // bfd: 'bfd-ui/lib'
+      bfd: path.join(__dirname, '../../../bfd-ui/src')
     }
   },
-  plugins: [new webpack.optimize.DedupePlugin()]
+  plugins: [new webpack.DefinePlugin({
+    __DEV__: String(!isProduction)
+  })]
 }
 
 if (isProduction) {

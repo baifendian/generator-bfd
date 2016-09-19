@@ -7,7 +7,7 @@
 
 ### 安装 [Node.js](https://nodejs.org/en) (>= v6.3.0)
 
-安装后会集成 npm 包管理工具，为了加快安装速度，设置国内镜像
+安装后会集成 npm 包管理工具（npm 版本要求 3.x），为了加快安装速度，设置国内镜像
 
 ```sh
 npm config set registry https://registry.npm.taobao.org

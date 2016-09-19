@@ -2,11 +2,11 @@
  * 常见的左右布局，左侧导航，右侧内容，并做了响应式处理
  */
 
-import './index.less'
 import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import { Row, Col } from 'bfd/Layout'
 import Button from 'bfd/Button'
+import './index.less'
 
 class Layout extends Component {
 

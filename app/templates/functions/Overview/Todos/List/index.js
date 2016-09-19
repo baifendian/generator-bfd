@@ -1,6 +1,6 @@
-import './index.less'
 import React, { Component, PropTypes } from 'react'
 import Button from 'bfd/Button'
+import './index.less'
 
 class List extends Component {
 
@@ -9,9 +9,10 @@ class List extends Component {
   }
 
   render() {
+    const { data } = this.props
     return (
       <ul className="todos__list">
-        {this.props.data.map((item, i) => (
+        {data.map((item, i) => (
           <li key={i}>
             {item}
             <Button size="sm" icon="remove" transparent onClick={() => {

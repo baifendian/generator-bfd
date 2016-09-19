@@ -49,7 +49,7 @@ bfd-ui 及脚手架主色调替换，支持多个颜色替换，语法规则：-
 
 ### 部署后资源加载路径问题
 
-`webpack.config.js` 下 `publicPath` 注意和线上环境保持一致，默认为 `/static/`，实际路径为 `http://media.com/static/`
+`webpack.config.js` 下 `publicPath` 注意和线上环境保持一致，默认为 `/static/`，对应的实际路径为 `http://media.com/static/`
 
 AJAX 请求路径在 `config.js` 下配置
 

@@ -1,9 +1,9 @@
-import './index.less'
 import React, { Component } from 'react'
 import update from 'react-update'
 import Input from 'bfd/Input'
 import Button from 'bfd/Button'
 import List from './List'
+import './index.less'
 
 class Todos extends Component {
 

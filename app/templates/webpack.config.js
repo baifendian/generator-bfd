@@ -43,7 +43,7 @@ var config = {
       }
     }, {
       test: /\.css$/,
-      loader: 'style!css!postcss'
+      loader: 'style!css'
     }, {
       test: /\.(eot|woff|woff2|ttf|svg|png|jpg)(\?v=[\d\.]+)?$/,
       loader: 'file?name=files/[hash].[ext]'
@@ -67,8 +67,7 @@ var config = {
     extensions: ['', '.js'],
     alias: {
       public: path.join(__dirname, './public'),
-      // bfd: 'bfd-ui/lib'
-      bfd: path.join(__dirname, '../../../bfd-ui/src')
+      bfd: 'bfd-ui/lib'
     }
   },
   plugins: [new webpack.DefinePlugin({

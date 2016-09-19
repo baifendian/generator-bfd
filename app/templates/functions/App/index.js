@@ -3,10 +3,10 @@ import './index.less'
 import './pace.less'
 import React, { Component, PropTypes } from 'react'
 import fastclick from 'fastclick'
+import pace from './pace'
 import Header from './Header'
 import Body from './Body'
-import Footer from 'public/Footer'
-import pace from './pace'
+import Footer from './Footer'
 
 pace.start()
 
@@ -24,6 +24,7 @@ class App extends Component {
       <Body key="body">{children}</Body>
     ]
 
+    // 登录页和 404 页不渲染 Header
     if (routes[1]) {
       const path = routes[1].path
       if (path === 'login' || path === '*') {

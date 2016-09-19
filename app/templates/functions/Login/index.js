@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import update from 'react-update'
-import { Form, FormItem, FormInput } from 'bfd/Form'
+import { Form, FormItem, FormSubmit, FormInput } from 'bfd/Form'
 import { Checkbox } from 'bfd/Checkbox'
 import Button from 'bfd/Button'
 import auth from 'public/auth'
@@ -40,7 +40,6 @@ class Login extends Component {
     return (
       <div className="login">
         <Form 
-          ref="form" 
           action="auth"
           onSuccess={::this.handleSuccess} 
           defaultData={user} 
@@ -59,7 +58,7 @@ class Login extends Component {
           <FormItem name="remember">
             <Checkbox onChange={::this.handleRemember}>下次自动登录</Checkbox>
           </FormItem>
-          <Button onClick={() => this.refs.form.save()}>登录</Button>
+          <FormSubmit>登录</FormSubmit>
         </Form>
       </div>
     )

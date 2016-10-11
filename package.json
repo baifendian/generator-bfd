@@ -1,7 +1,7 @@
 {
   "name": "generator-bfd",
   "version": "1.0.6",
-  "description": "",
+  "description": "Yeoman generator for bfd front-end project",
   "files": [
     "app"
   ],

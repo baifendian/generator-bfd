@@ -13,7 +13,7 @@
 npm config set registry https://registry.npm.taobao.org
 ```
 
-### 安装 yeoman 平台
+### 安装 yeoman 平台及脚手架模板
 
 ```sh
 # 安装yeoman构建平台
